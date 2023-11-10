@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Airbnb</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='about_style.css') }}">
+</head>
+<body>
+    <header class="bg-white shadow-sm">
+        <nav class="container">
+            <div class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/airbnb_logo.jpeg') }}" alt="Airbnb Logo" height="40">
+            </div>
+  <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/register">Sign Up</a></li>
+                <li><a href="/login">Log In</a></li>
+            </ul>
+        </nav>
+    </header><br><br>
+
+    <main class="container my-5">
+        <div class="about">
+            <h1 style="color: #ff4247;text-align:center">About Us</h1><br><br>
+            <p class="text-justify">
+                We are a marketplace that connects property owners who seek to rent out their property for short term durations with guests who want to rent those properties. The popularity of Airbnb has grown considerably over the years, with millions of people using this platform to book accommodations all around the world. We come up with an improved version to provide the best experience to both Airbnb guests and hosts. Guests benefit from reliable search results with verified amenities. Hosts benefit by being alerted to any missing or damaged items.
+            </p><br><br>
+            <h3 style="color: #ff4247;text-align:center">Our Team</h3>
+            <ul style="text-align:center">Anisha Rao,Lina,Gianni,Mythri</ul>
+
+        </div>
+    </main>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/about.jpeg') }}" alt="Image 1" class="img-fluid mb-3">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/about1.jpeg') }}" alt="Image 2" class="img-fluid mb-3">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/about2.jpeg') }}" alt="Image 3" class="img-fluid mb-3">
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Airbnb, Inc.</p>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

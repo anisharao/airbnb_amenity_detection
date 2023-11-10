@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Airbnb</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='about_style.css') }}">
+</head>
+<body>
+    <header class="bg-white shadow-sm">
+        <nav class="container">
+            <div class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/airbnb_logo.jpeg') }}" alt="Airbnb Logo" height="40">
+            </div>
+  <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/register">Sign Up</a></li>
+                <li><a href="/login">Log In</a></li>
+            </ul>
+        </nav>
+    </header>
+<main>
+<div class="container mt-5">
+        <h2 style="color: #ff4247;text-align:center">Add Airbnb Listing</h2><br>
+        <form method="POST" action="/register_airbnb" enctype="multipart/form-data">
+          <div class="form-group">
+                <input type="number" class="form-control" id="id" name="id" placeholder="Enter Airbnb Id" required>
+          </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Airbnb Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" required>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price per Night" required>
+            </div>
+       <div class="form-group text-center">
+          <input type="file" class="form-control-file" name="image" id="image" accept="image/*" required>
+       </div>
+      <div class="text-center">
+          <button type="submit" class="btn cta-button">Submit</button>
+<!--        <a href="{{ url_for('register_airbnb') }}" class="btn cta-button">Submit</a><br><br>-->
+      </div>
+        </form><br>
+        <div class="d-flex align-items-center justify-content-center">
+        {% if image_path %}
+            <img src="data:image/jpeg;base64,{{ image_path }}" alt="Uploaded Image">
+        {% endif %}
+
+        <div class="detected-labels">
+            {% if detected_labels_str %}
+                <p>Detected Amenities:</p>
+                <p class="detected-label">{{ detected_labels_str }}</p>
+            {% endif %}
+         </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Airbnb, Inc.</p>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

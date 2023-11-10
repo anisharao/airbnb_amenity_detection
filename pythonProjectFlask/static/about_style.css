@@ -1,0 +1,83 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body spans the entire viewport height */
+}
+
+/* Header Styles */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+.logo img {
+    height: 40px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+}
+
+main {
+    flex-grow: 1; /* Allow the main content to grow and fill available space */
+    text-align: justify;
+    font-family:  sans-serif;
+    color: black;
+}
+
+.about {
+    text-align: justify;
+    font-family:  sans-serif;
+    color: black;
+}
+
+
+.cta-button {
+    display: inline-block;
+    background-color: #ff5a5f;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #ff4247;
+}
+
+/* Add this CSS to your existing CSS file or within a <style> tag in your HTML */
+
+.detected-labels {
+    margin-left: 20px; /* Adjust the margin as needed */
+    font-size: 16px; /* Adjust the font size as needed */
+    color: #ff5a5f; /* Text color for detected labels */
+}
+
+.detected-label {
+    font-weight: bold; /* Make the labels bold */
+}

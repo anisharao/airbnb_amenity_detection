@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register Airbnb</title>
+    <title>Upload Images</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet"  href="{{ url_for('static', filename='about_style.css') }}">
 </head>
@@ -22,28 +22,32 @@
     </header>
 <main>
 <div class="container mt-5">
-        <h2 style="color: #ff4247;text-align:center">Add Airbnb Listing</h2><br>
+          <h2 style="color: #ff4247;text-align:center">What are the Amenities?</h2><br>
         <form method="POST" action="/airbnb_detections" enctype="multipart/form-data">
-          <div class="form-group">
-                <input type="number" class="form-control" id="id" placeholder="Enter Airbnb Id" required>
+         <div class="form-group">
+        <select class="form-control" id="amenity" name="amenity" required>
+        <option value="bedroom">Select Bedroom</option>
+        <option value="living">Select Living Room</option>
+        <option value="kitchen">Select Kitchen</option>
+        <option value="bathroom">Select Bathroom</option>
+        <option value="outdoor">Select Outdoor</option>
+        </select>
+        </div>
+
+          <h2 style="color: #ff4247;text-align:center">Upload Images</h2><br>
+          <div class="form-group text-center">
+          <input type="file" class="form-control-file" name="image" id="image" accept="image/*" required multiple>
           </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="name" placeholder="Enter Airbnb Name" required>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="location" placeholder="Enter Location" required>
-            </div>
-            <div class="form-group">
-                <input type="number" class="form-control" id="price" placeholder="Enter Price per Night" required>
-            </div>
-       <div class="form-group text-center">
-          <input type="file" class="form-control-file" name="image" id="image" accept="image/*" required>
-       </div>
+
       <div class="text-center">
           <button type="submit" class="btn cta-button">Submit</button>
 <!--        <a href="{{ url_for('register_airbnb') }}" class="btn cta-button">Submit</a><br><br>-->
       </div>
+
         </form><br>
+
+
+
         <div class="d-flex align-items-center justify-content-center">
         {% if image_path %}
             <img src="data:image/jpeg;base64,{{ image_path }}" alt="Uploaded Image">

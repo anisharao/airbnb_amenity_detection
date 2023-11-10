@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Bootstrap CSS from a CDN -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="bg-white shadow-sm">
+        <nav class="container">
+            <div class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/airbnb_logo.jpeg') }}" alt="Airbnb Logo" height="40">
+            </div>
+  <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/register">Sign Up</a></li>
+                <li><a href="/login">Log In</a></li>
+            </ul>
+        </nav>
+    </header><br><br>
+
+    <main class="container text-center mt-5">
+        <h1>Your Next Adventure Awaits</h1>
+        <p class="subtitle">Discover amazing places to stay around the world.</p>
+           <div class="container mt-5">
+            <a href="{{ url_for('host_view') }}" class="btn cta-button">Host View</a><br><br>
+            <a href="{{ url_for('guest_view') }}" class="btn cta-button">Guest View</a>
+            </div>
+    </main>
+
+
+
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Airbnb, Inc.</p>
+    </footer>
+
+    <!-- Include Bootstrap JS and jQuery from a CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

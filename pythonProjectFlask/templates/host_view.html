@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Host View</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='about_style.css') }}">
+</head>
+<body>
+    <header class="bg-white shadow-sm">
+        <nav class="container">
+            <div class="navbar-brand">
+                <img src="{{ url_for('static', filename='images/airbnb_logo.jpeg') }}" alt="Airbnb Logo" height="40">
+            </div>
+  <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/register">Sign Up</a></li>
+                <li><a href="/login">Log In</a></li>
+            </ul>
+        </nav>
+    </header><br><br>
+
+<main class="container my-5">
+    <div class="about text-center"> <!-- Added 'text-center' class here -->
+        <h1 style="color: #ff4247;">Creating moments, one stay at a time...</h1>
+        <div class="container mt-5">
+            <a href="{{ url_for('register_airbnb') }}" class="btn cta-button">Register Airbnb</a><br><br>
+            <a href="{{ url_for('guest_view') }}" class="btn cta-button">View Inventory</a>
+        </div>
+    </div>
+</main>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/about.jpeg') }}" alt="Image 1" class="img-fluid mb-3">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/about1.jpeg') }}" alt="Image 2" class="img-fluid mb-3">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/about2.jpeg') }}" alt="Image 3" class="img-fluid mb-3">
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Airbnb, Inc.</p>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

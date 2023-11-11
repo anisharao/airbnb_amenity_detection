@@ -23,18 +23,18 @@
 <main>
 <div class="container mt-5">
         <h2 style="color: #ff4247;text-align:center">Add Airbnb Listing</h2><br>
-        <form method="POST" action="/airbnb_detections" enctype="multipart/form-data">
+        <form method="POST" action="/register_airbnb" enctype="multipart/form-data">
           <div class="form-group">
-                <input type="number" class="form-control" id="id" placeholder="Enter Airbnb Id" required>
+                <input type="number" class="form-control" id="id" name ="id" placeholder="Enter Airbnb Id" required>
           </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="name" placeholder="Enter Airbnb Name" required>
+                <input type="text" class="form-control" id="name" name ="name" placeholder="Enter Airbnb Name" required>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="location" placeholder="Enter Location" required>
+                <input type="text" class="form-control" id="location" name ="location" placeholder="Enter Location" required>
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" id="price" placeholder="Enter Price per Night" required>
+                <input type="number" class="form-control" id="price" name ="price" placeholder="Enter Price per Night" required>
             </div>
 
       <div class="text-center">

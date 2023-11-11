@@ -5,6 +5,14 @@
     <title>Upload Images</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet"  href="{{ url_for('static', filename='about_style.css') }}">
+  <style>
+        .image-card {
+            margin: 10px; /* Add some spacing between images */
+            width: 400px; /* Set the width to make images larger */
+            height: 480px; /* Set the width to make images larger */
+
+        }
+    </style>
 </head>
 <body>
     <header class="bg-white shadow-sm">
@@ -48,20 +56,26 @@
 
 
 
-        <div class="d-flex align-items-center justify-content-center">
-        {% if image_path %}
-            <img src="data:image/jpeg;base64,{{ image_path }}" alt="Uploaded Image">
-        {% endif %}
+<!--        <div class="d-flex align-items-center justify-content-center">-->
+<!--        {% if image_path %}-->
+<!--            <img src="data:image/jpeg;base64,{{ image_path }}" alt="Uploaded Image">-->
+<!--        {% endif %}-->
 
-        <div class="detected-labels">
-            {% if detected_labels_str %}
-                <p>Detected Amenities:</p>
-                <p class="detected-label">{{ detected_labels_str }}</p>
-            {% endif %}
-         </div>
+        <div class="d-flex flex-wrap justify-content-center">
+        {% for image, detected_labels_str in detected_images %}
+        <div class="card image-card">
+            <img class="card-img-top" src="data:image/jpeg;base64,{{ image }}" alt="Uploaded Image" style="width: 400px; height: 300px;"> <!-- Adjust the width and height as needed -->
+            <div class="card-body">
+                <p class="card-text">Detected Amenities:</p>
+                <p class="card-text">{{ detected_labels_str }}</p>
             </div>
         </div>
+    {% endfor %}
+    </div>
+
+        </div>
     </main>
+
 
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2023 Airbnb, Inc.</p>

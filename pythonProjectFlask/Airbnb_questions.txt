@@ -1,0 +1,71 @@
+
+1.  "What should I do if I can't find my reservation?"
+   Response: "If you can't find your reservation, you can log in to your Airbnb account and go to your 'Trips' section. There, you should see all your upcoming and past reservations. If you still can't find it, you can contact our support team, and they'll be happy to assist you in locating your booking."
+
+2. User Query: "How do I cancel a reservation?"
+   Response: "To cancel a reservation, go to your 'Trips' and find the reservation you want to cancel. Click on it and select 'Cancel Reservation.' Keep in mind that the cancellation policy and any associated fees will apply. Be sure to review the cancellation terms before confirming."
+
+3. User Query: "Is it possible to change my check-in date?"
+   Response: "Yes, you can change your check-in date if the host allows it and the dates are available. To do this, go to your reservation details and select 'Change Reservation.' Follow the prompts to adjust your check-in date and ensure it aligns with the host's availability."
+
+4. User Query: "How can I contact my Airbnb host?"
+   Response: "You can contact your host by going to your reservation and clicking on 'Contact Host.' You can send them a message to discuss any questions or concerns you may have about your stay."
+
+5. User Query: "What should I do in case of an issue with my stay?"
+   Response: "If you encounter any issues during your stay, it's best to contact your host first to resolve the problem. If the issue remains unresolved, you can reach out to Airbnb's support team, and they will assist you in finding a solution or making alternative arrangements."
+
+6. User Query: "What is the Superhost program?"
+   Response: "The Superhost program recognizes hosts who consistently provide outstanding hospitality. Superhosts receive benefits such as increased visibility, priority support, and other rewards. To become a Superhost, hosts must meet certain criteria, including high ratings and hosting frequency."
+
+7. User Query: "How can I leave a review for my stay?"
+   Response: "Leaving a review is easy! After your stay, Airbnb will send you a notification to leave a review for your host. Simply click on the link provided in the message, and you can rate your stay and leave feedback to help other travelers."
+
+8. User Query: "What happens if my host cancels my reservation?"
+   Response: "If your host cancels your reservation, you'll receive a full refund, and Airbnb will assist you in finding a new place to stay. Hosts are strongly encouraged not to cancel, and if they do, it may affect their Superhost status and search rankings."
+
+9. User Query: "How can I verify my Airbnb account?"
+   Response: "Verifying your Airbnb account is important for security. To do so, you'll need to provide identification, such as a government-issued ID, and complete other verification steps like connecting social media accounts. You can start the verification process in your account settings."
+
+10. User Query: "What is Airbnb's Extenuating Circumstances Policy?"
+    Response: "The Extenuating Circumstances Policy allows for penalty-free cancellations in cases of unforeseen events, such as natural disasters or serious illness. If you believe you qualify, you can request a cancellation under this policy by contacting Airbnb's support team."
+
+11. User Query: "How can I use the inventory tracking feature in the app to keep track of amenities in my Airbnb property?"
+   Response: "To use the inventory tracking feature, navigate to your property's listing, and you'll find an 'Inventory Tracking' section. From there, you can add, edit, and update the amenities in your property. The app will automatically keep track of them."
+
+12. User Query: "What amenities does the amenity detection system in the app recognize? Can I add custom amenities?"
+   Response: "The app recognizes a wide range of standard amenities, but you can also add custom amenities to tailor it to your property. To do so, simply go to the 'Custom Amenities' section in the app and add the details."
+
+
+13. User Query: "Can I use the app to check the availability of specific amenities in an Airbnb property before making a reservation?"
+   Response: "Yes, you can. When browsing listings, you'll see amenity details. You can use this information to check if specific amenities are available before making a reservation."
+
+14. User Query: "How do I update the inventory and amenities for my Airbnb listing using the app?"
+   Response: "To update inventory and amenities, go to the 'Inventory Tracking' section of your property listing. You can make changes, add items, or update quantities directly from there."
+
+
+15. User Query: "Can the app help me generate reports or summaries of the amenities and inventory in my Airbnb properties?"
+   Response: "Yes, the app can generate reports that provide a summary of amenities and inventory for your property. You can access these reports from the 'Reports' section."
+
+16. User Query: "I want to track consumables like toiletries. Can the app's inventory tracking system handle this?"
+   Response: "Absolutely. You can track consumables like toiletries as part of your inventory. Just include them in the 'Inventory Tracking' section, and the app will help you manage them."
+
+17. User Query: "How can I track the inventory in my Airbnb property?"
+   Response: "In the Inventory Tracking section of your application, you can easily manage the inventory for your property. You can add, update, or remove items, specify quantities, and set low stock alerts. This helps ensure your guests have a comfortable stay."
+
+18. User Query: "Can I receive notifications when an item is running low in stock?"
+   Response: "Yes, you can set up low stock alerts in the Inventory Tracking section. When an item's quantity falls below the specified threshold, you will receive a notification. This helps you stay on top of your inventory and ensures items are replenished in time."
+
+19. User Query: "What amenities are currently available in my Airbnb property?"
+   Response: "You can view the list of amenities available in your property by accessing the Amenities section. It provides a detailed overview of all the amenities you've added, along with their current status and quantity."
+
+20. User Query: "How do I add a new amenity to my property?"
+   Response: "To add a new amenity, go to the Inventory Tracking section and select 'Add Amenity.' Fill in the details, including the name, description, and quantity. Once added, the new amenity will be available for tracking in your property."
+
+21. User Query: "Can I export the inventory data for my records?"
+   Response: "Yes, you can export the inventory data in various formats, such as CSV or Excel, for your records. This can be done in the Inventory Tracking section by selecting the 'Export' option."
+
+22. User Query: "What should I do if an amenity is damaged or needs replacement?"
+   Response: "If an amenity is damaged or needs replacement, you can update its status in the Inventory Tracking section. Specify that the item needs attention, and make a note for maintenance. This helps ensure everything is in good condition for your guests."
+
+23. User Query: "Is there a way to view historical inventory data?"
+   Response: "Yes, you can view historical inventory data in the application. This feature allows you to track changes in quantities over time, helping you make informed decisions about restocking and managing your property's amenities."

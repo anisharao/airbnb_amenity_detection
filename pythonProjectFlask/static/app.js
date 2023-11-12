@@ -38,10 +38,11 @@ class Chatbox {
 
         let msg1 = {name: "User",message: text1}
         this.messages.push(msg1);
+        this.updateChatText(chatbox)
 
-        fetch($SCRIPT_ROOT+ '/predict',{
+        fetch($SCRIPT_ROOT+ '/airbot',{
             method: 'POST',
-            body:JSON.stringify({message: text1}),
+            body:JSON.stringify({'conv_history': this.messages}),
             mode:'cors',
             headers:{
                 'Content-Type': 'application/json'
@@ -49,7 +50,7 @@ class Chatbox {
         })
             .then(r => r.json())
             .then(r=>{
-                let msg2 = { name:"sam", message: r.answer};
+                let msg2 = { name:"assistant", message: r.answer};
                 this.messages.push(msg2);
                 this.updateChatText(chatbox)
                 textField.value = ''
@@ -63,19 +64,8 @@ class Chatbox {
 
     updateChatText(chatbox) {
         var html = "";
-        console.log("petri",this.messages)
-        this.messages = [
-    {
-        "name": "User",
-        "message": "I'd like to get updates on my property inventory, please."
-    },
-    {
-        "name": "sam",
-        "message": "Certainly! Here's an update for your Property 1: You have 3 paper towels, 5 bowls, and 10 cups. Is there anything else you'd like to know? "
-    }
-]
         this.messages.slice().reverse().forEach(function(item,){
-            if(item.name === "sam"){
+            if(item.name === "assistant"){
                 html += '<div class = "messages__item messages__item--visitor">' + item.message + '</div>'
             }
             else{

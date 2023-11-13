@@ -1,5 +1,6 @@
 import os
-
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 import Utility
 from detectron2.engine import DefaultTrainer, DefaultPredictor
 from detectron2.structures import BoxMode, Instances
@@ -11,7 +12,7 @@ import torch
 import matplotlib.pyplot as plt
 from PIL import Image
 import requests
-import pymysql
+import io
 # import some common detectron2 utilities
 from detectron2 import model_zoo
 from detectron2.config import get_cfg
@@ -54,7 +55,7 @@ classes = ['Bathtub',
 
 
 def load_json_labels(json_file):
-    print('json_file',json_file)
+    print('json_file', json_file)
     # Check to see if json_file exists
     assert json_file, "No .json label file found, please make one with get_image_dicts()"
 
@@ -68,7 +69,8 @@ def load_json_labels(json_file):
 
     return img_dicts
 
-def filter_classes(outputs, desired_class_ids, oim,confidence_threshold=0.61):
+
+def filter_classes(outputs, desired_class_ids, oim, confidence_threshold=0.61):
     cls = outputs['instances'].pred_classes
     scores = outputs["instances"].scores
     boxes = outputs['instances'].pred_boxes
@@ -96,6 +98,7 @@ def filter_classes(outputs, desired_class_ids, oim,confidence_threshold=0.61):
 
     return obj
 
+
 def filter_classes_original(outputs, oim, confidence_threshold=0.61):
     cls = outputs['instances'].pred_classes
     scores = outputs["instances"].scores
@@ -116,13 +119,15 @@ def filter_classes_original(outputs, oim, confidence_threshold=0.61):
 
     return obj
 
+
 def load_pretrained_maskRCNN_Model():
     # Load a pretrained Mask R-CNN model
     mask_cfg = get_cfg()
     mask_cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     mask_cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
     mask_predictor = DefaultPredictor(mask_cfg)
-    return mask_cfg,mask_predictor
+    return mask_cfg, mask_predictor
+
 
 def fasterrcnn_model():
     # Setup a model config (recipe for training a Detectron2 model)
@@ -161,7 +166,8 @@ def fasterrcnn_model():
     predictor = DefaultPredictor(cfg)
     return predictor
 
-def process_uploaded_image(uploaded_image,airbnb_openV7_metadata,airbnb_id,category,mask_cfg,mask_predictor,faster_predictor):
+
+def process_uploaded_image(uploaded_image, airbnb_openV7_metadata, airbnb_id, category):
     oim = cv2.imread(uploaded_image)
     # Define the desired class IDs (0, 1, 2, 3, 4, etc.) for the classes you want to detect
     desired_class_ids_mask = [10, 13, 24, 25, 26, 28, 32, 33, 34, 39, 38, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
@@ -169,42 +175,95 @@ def process_uploaded_image(uploaded_image,airbnb_openV7_metadata,airbnb_id,categ
                               75, 76, 77, 78, 79]  # Modify this list according to your desired classes
     desired_class_ids_faster = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 16, 17, 19, 21, 22, 23, 26, 27, 28, 29]
     # Predictions and display only the specified classes
-
-    original_outputs1 = filter_classes_original(mask_predictor(oim),oim)
-    modified_outputs1 = filter_classes(mask_predictor(oim), desired_class_ids_mask,oim)
-    original_outputs2 = filter_classes_original(faster_predictor(oim),oim)
-    modified_outputs2 = filter_classes(faster_predictor(oim), desired_class_ids_faster,oim)
-
-    # Visualize the predictions from the first model
-    v1 = Visualizer(oim[:, :, ::-1], MetadataCatalog.get(mask_cfg.DATASETS.TRAIN[0]), scale=0.5)
-    v1 = v1.draw_instance_predictions(modified_outputs1.to("cpu"))
-
-    # Visualize the predictions from the second model
-    v2 = Visualizer(oim[:, :, ::-1], metadata=airbnb_openV7_metadata, scale=0.5)
-    v2 = v2.draw_instance_predictions(modified_outputs2.to("cpu"))
-
-    output_image1 = v1.get_image()[:, :, ::-1]
-    output_image2 = v2.get_image()[:, :, ::-1]
-
-    # Overlay the two prediction images
-    result = cv2.addWeighted(output_image1, .5, output_image2, .5, 10)
-    enhanced_image = cv2.detailEnhance(result, sigma_s=10, sigma_r=0.05)
+    mask_cfg, mask_predictor = load_pretrained_maskRCNN_Model()
+    faster_predictor = fasterrcnn_model()
+    original_outputs1 = filter_classes_original(mask_predictor(oim), oim)
+    modified_outputs1 = filter_classes(mask_predictor(oim), desired_class_ids_mask, oim)
+    original_outputs2 = filter_classes_original(faster_predictor(oim), oim)
+    modified_outputs2 = filter_classes(faster_predictor(oim), desired_class_ids_faster, oim)
 
     mask_metadata = MetadataCatalog.get(mask_predictor.cfg.DATASETS.TRAIN[0])
     mask_label_names = [mask_metadata.thing_classes[label_id] for label_id in modified_outputs1.get('pred_classes')]
 
-    faster_label_names = [airbnb_openV7_metadata.thing_classes[label_id] for label_id in modified_outputs2.get('pred_classes')]
+    faster_label_names = [airbnb_openV7_metadata.thing_classes[label_id] for label_id in
+                          modified_outputs2.get('pred_classes')]
+
+    instances1 = modified_outputs1
+    num_instances1 = len(instances1)
+    coco_classes = [
+        'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat',
+        'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat',
+        'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack',
+        'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball',
+        'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
+        'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple',
+        'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair',
+        'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse',
+        'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator',
+        'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
+    ]
+    if num_instances1 > 0:
+        # Loop through all instances
+        for i in range(num_instances1):
+            bbox = instances1.pred_boxes.tensor.numpy()[i]
+            confidence = instances1.scores.numpy()[i]
+            class_id = instances1.pred_classes.numpy()[i]
+            class_label = coco_classes[class_id]
+            # Create a Rectangle patch
+            rect = patches.Rectangle((bbox[0], bbox[1]), bbox[2] - bbox[0], bbox[3] - bbox[1],
+                                     linewidth=1, edgecolor='b', facecolor='none')
+
+            # Display the image with bounding box, confidence, and class label
+            plt.imshow(oim[:, :, ::-1])  # Convert BGR to RGB
+            plt.gca().add_patch(rect)
+            plt.text(bbox[0], bbox[1] - 5, f"Class: {class_label}\nConfidence: {confidence:.2f}",
+                     color='blue', fontsize=10, ha='left', va='bottom', bbox=dict(facecolor='white', alpha=0.8))
+
+    instances2 = modified_outputs2
+    num_instances2 = len(instances2)
+
+    if num_instances2 > 0:
+        # Loop through all instances
+        for i in range(num_instances2):
+            bbox = instances2.pred_boxes.tensor.numpy()[i]
+            confidence = instances2.scores.numpy()[i]
+            class_id = instances2.pred_classes.numpy()[i]
+            class_label = classes[class_id]
+            # Create a Rectangle patch
+            rect = patches.Rectangle((bbox[0], bbox[1]), bbox[2] - bbox[0], bbox[3] - bbox[1],
+                                     linewidth=1, edgecolor='b', facecolor='none')
+
+            # Display the image with bounding box, confidence, and class label
+            plt.imshow(oim[:, :, ::-1])  # Convert BGR to RGB
+            plt.gca().add_patch(rect)
+            plt.text(bbox[0], bbox[1] - 5, f"Class: {class_label}\nConfidence: {confidence:.2f}",
+                     color='blue', fontsize=10, ha='left', va='bottom', bbox=dict(facecolor='white', alpha=0.8))
+
+    plt.show()
 
     # Create a list containing label names
     label_names = mask_label_names + faster_label_names
     label_counts = Counter(label_names)
     detected_labels_str = ', '.join(f'{label}={count}' for label, count in label_counts.items())
-    print('Start Inserting in detections table::')
     for label, count in label_counts.items():
-        Utility.insert_into_airbnb_detection(airbnb_id, label, count,category)
+        Utility.insert_into_airbnb_detection(airbnb_id, label, count, category)
     print(detected_labels_str)
 
-    pil_image = Image.fromarray(cv2.cvtColor(enhanced_image, cv2.COLOR_BGR2RGB))
-    return pil_image,detected_labels_str
+    # Capture the current figure as an image
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', bbox_inches='tight')
+    buf.seek(0)
+
+    # Convert the image to a NumPy array
+    buf = io.BytesIO(buf.read())
+    buf.seek(0)
+    img = cv2.imdecode(np.frombuffer(buf.read(), np.uint8), 1)
+
+    # Convert the BGR image to RGB
+    rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    pil_image = Image.fromarray(rgb_image)
+
+    # pil_image = Image.fromarray(cv2.cvtColor(p, cv2.COLOR_BGR2RGB))
+    return pil_image, detected_labels_str
 
 

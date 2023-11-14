@@ -1,11 +1,12 @@
+import json
 import os
 from langchain.schema.output_parser import StrOutputParser
 from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 from operator import itemgetter
+import pymysql
 
-
-os.environ["OPENAI_API_KEY"] = 'OPENAI KEY HERE'
+os.environ["OPENAI_API_KEY"] = 'Open AI API Key Here'
 
 with open('Airbnb_questions.txt') as query_file:
     questions = query_file.read()
@@ -30,11 +31,45 @@ Customer conversation:
 Return only the response for the user.
 """
 
+connection = pymysql.connect(host="34.70.162.68", user="anisharao", passwd="airbnb", db="airbnb-298")
+
+
+def get_inventory(airbnb_id=None):
+    try:
+        # Create a cursor object
+        cursor = connection.cursor()
+
+        if airbnb_id:
+            # Execute a query to get the table names
+            cursor.execute(f"select * from airbnb_detection where airbnb_id = {airbnb_id}")
+        else:
+            cursor.execute("select * from airbnb_detection")
+
+        # Fetch all the tables
+        records = cursor.fetchall()
+        json_records = []
+        for record in records:
+            json_records.append({'airbnb_id': record[0],
+                                 'amenity_name': record[1],
+                                 'amenity_count': record[2],
+                                 'CATEGORY': record[3]})
+        json_output = json.dumps(json_records, indent=2)
+        return json_output
+
+    finally:
+        # Close the cursor
+        cursor.close()
+
 
 def answer_question(conv_history, user_info=None):
+    if not user_info:
+        user_info = get_inventory()
+
+    print(user_info)
+
     QA_CHAIN_PROMPT = ChatPromptTemplate.from_template(template)
 
-    llm = ChatOpenAI(model_name="gpt-4", temperature=0)
+    llm = ChatOpenAI(model_name="gpt-4-1106-preview", temperature=0)
 
     chain = ({"questions": itemgetter('questions'),
               "conv_history": itemgetter('conv_history'),
@@ -49,6 +84,7 @@ def answer_question(conv_history, user_info=None):
 
 
 if __name__ == '__main__':
+    print(get_inventory(1))
     samp_user_info = str({'property1': {'amenities': {'oven': 1, 'chairs': 2}},
                           'property2': {'amenities': {'oven': 2, 'chairs': 4}}})
     resp = answer_question(
